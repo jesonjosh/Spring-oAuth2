@@ -1,0 +1,10 @@
+com\seva\Persistence\AbstractDAO.class
+com\seva\framework\annotation\Log.class
+com\seva\Persistence\MenuDAOImpl.class
+com\seva\models\Item.class
+com\seva\services\MenuService.class
+com\seva\models\User.class
+com\seva\Resources\MenuResource.class
+com\seva\services\MenuServiceImpl.class
+com\seva\Persistence\MenuDAO.class
+com\seva\Resources\OrderResource.class
