@@ -13,13 +13,22 @@ import javax.persistence.*;
 @NamedQuery(name="ItemOrderType.findAll", query="SELECT i FROM ItemOrderType i")
 public class ItemOrderType implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private int id;
 	private String orderType;
 	private MenuItem menuItem;
 
 	public ItemOrderType() {
 	}
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	public int getId() {
+		return this.id;
+	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
 	@Column(name="ORDER_TYPE")
 	public String getOrderType() {
 		return this.orderType;

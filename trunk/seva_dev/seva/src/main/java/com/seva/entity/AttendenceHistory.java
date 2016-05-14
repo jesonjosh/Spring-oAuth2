@@ -20,15 +20,16 @@ public class AttendenceHistory implements Serializable {
 	private short clockOutHour;
 	private Date clockOutTime;
 	private byte clockedOut;
+	private Shift shift;
 	private Terminal terminal;
 	private User user;
-	private Shift shift;
 
 	public AttendenceHistory() {
 	}
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}
@@ -90,6 +91,17 @@ public class AttendenceHistory implements Serializable {
 	}
 
 
+	//bi-directional many-to-one association to Shift
+	@ManyToOne
+	public Shift getShift() {
+		return this.shift;
+	}
+
+	public void setShift(Shift shift) {
+		this.shift = shift;
+	}
+
+
 	//bi-directional many-to-one association to Terminal
 	@ManyToOne
 	public Terminal getTerminal() {
@@ -110,17 +122,6 @@ public class AttendenceHistory implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-
-	//bi-directional many-to-one association to Shift
-	@ManyToOne
-	public Shift getShift() {
-		return this.shift;
-	}
-
-	public void setShift(Shift shift) {
-		this.shift = shift;
 	}
 
 }

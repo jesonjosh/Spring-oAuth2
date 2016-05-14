@@ -45,11 +45,11 @@ public class Ticket implements Serializable {
 	private byte voided;
 	private byte wasted;
 	private Set<Gratuity> gratuities;
-	private User user1;
-	private Terminal terminal;
-	private Shift shift;
-	private User user2;
 	private Gratuity gratuity;
+	private Shift shift;
+	private Terminal terminal;
+	private User user1;
+	private User user2;
 	private User user3;
 	private Set<TicketDiscount> ticketDiscounts;
 	private Set<TicketItem> ticketItems;
@@ -62,6 +62,7 @@ public class Ticket implements Serializable {
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}
@@ -384,26 +385,14 @@ public class Ticket implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to User
+	//bi-directional many-to-one association to Gratuity
 	@ManyToOne
-	@JoinColumn(name="VOID_BY_USER")
-	public User getUser1() {
-		return this.user1;
+	public Gratuity getGratuity() {
+		return this.gratuity;
 	}
 
-	public void setUser1(User user1) {
-		this.user1 = user1;
-	}
-
-
-	//bi-directional many-to-one association to Terminal
-	@ManyToOne
-	public Terminal getTerminal() {
-		return this.terminal;
-	}
-
-	public void setTerminal(Terminal terminal) {
-		this.terminal = terminal;
+	public void setGratuity(Gratuity gratuity) {
+		this.gratuity = gratuity;
 	}
 
 
@@ -418,6 +407,29 @@ public class Ticket implements Serializable {
 	}
 
 
+	//bi-directional many-to-one association to Terminal
+	@ManyToOne
+	public Terminal getTerminal() {
+		return this.terminal;
+	}
+
+	public void setTerminal(Terminal terminal) {
+		this.terminal = terminal;
+	}
+
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="VOID_BY_USER")
+	public User getUser1() {
+		return this.user1;
+	}
+
+	public void setUser1(User user1) {
+		this.user1 = user1;
+	}
+
+
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="OWNER_ID")
@@ -427,17 +439,6 @@ public class Ticket implements Serializable {
 
 	public void setUser2(User user2) {
 		this.user2 = user2;
-	}
-
-
-	//bi-directional many-to-one association to Gratuity
-	@ManyToOne
-	public Gratuity getGratuity() {
-		return this.gratuity;
-	}
-
-	public void setGratuity(Gratuity gratuity) {
-		this.gratuity = gratuity;
 	}
 
 

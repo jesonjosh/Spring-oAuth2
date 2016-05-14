@@ -26,15 +26,16 @@ public class TableBookingInfo implements Serializable {
 	private double remainingBalance;
 	private String status;
 	private Date toDate;
-	private User user;
-	private Customer customer;
 	private Set<ShopTable> shopTables;
+	private Customer customer;
+	private User user;
 
 	public TableBookingInfo() {
 	}
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}
@@ -145,15 +146,14 @@ public class TableBookingInfo implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	public User getUser() {
-		return this.user;
+	//bi-directional many-to-many association to ShopTable
+	@ManyToMany(mappedBy="tableBookingInfos")
+	public Set<ShopTable> getShopTables() {
+		return this.shopTables;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setShopTables(Set<ShopTable> shopTables) {
+		this.shopTables = shopTables;
 	}
 
 
@@ -169,14 +169,15 @@ public class TableBookingInfo implements Serializable {
 	}
 
 
-	//bi-directional many-to-many association to ShopTable
-	@ManyToMany(mappedBy="tableBookingInfos")
-	public Set<ShopTable> getShopTables() {
-		return this.shopTables;
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setShopTables(Set<ShopTable> shopTables) {
-		this.shopTables = shopTables;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

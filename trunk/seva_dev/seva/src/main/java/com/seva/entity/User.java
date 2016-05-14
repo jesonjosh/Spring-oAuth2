@@ -41,14 +41,15 @@ public class User implements Serializable {
 	private Set<Ticket> tickets3;
 	private Set<Transaction> transactions;
 	private Shift shift;
-	private UserType userType;
 	private Terminal terminal;
+	private UserType userType;
 
 	public User() {
 	}
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="AUTO_ID")
 	public int getAutoId() {
 		return this.autoId;
@@ -489,18 +490,6 @@ public class User implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to UserType
-	@ManyToOne
-	@JoinColumn(name="N_USER_TYPE")
-	public UserType getUserType() {
-		return this.userType;
-	}
-
-	public void setUserType(UserType userType) {
-		this.userType = userType;
-	}
-
-
 	//bi-directional many-to-one association to Terminal
 	@ManyToOne
 	@JoinColumn(name="currentTerminal")
@@ -510,6 +499,18 @@ public class User implements Serializable {
 
 	public void setTerminal(Terminal terminal) {
 		this.terminal = terminal;
+	}
+
+
+	//bi-directional many-to-one association to UserType
+	@ManyToOne
+	@JoinColumn(name="N_USER_TYPE")
+	public UserType getUserType() {
+		return this.userType;
+	}
+
+	public void setUserType(UserType userType) {
+		this.userType = userType;
 	}
 
 }

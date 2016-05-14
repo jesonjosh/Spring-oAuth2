@@ -13,13 +13,22 @@ import javax.persistence.*;
 @NamedQuery(name="KitTicketTableNum.findAll", query="SELECT k FROM KitTicketTableNum k")
 public class KitTicketTableNum implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private int id;
 	private int tableId;
 	private KitchenTicket kitchenTicket;
 
 	public KitTicketTableNum() {
 	}
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	public int getId() {
+		return this.id;
+	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
 	@Column(name="TABLE_ID")
 	public int getTableId() {
 		return this.tableId;

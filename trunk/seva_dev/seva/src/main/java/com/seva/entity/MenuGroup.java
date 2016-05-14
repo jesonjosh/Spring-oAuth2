@@ -21,15 +21,16 @@ public class MenuGroup implements Serializable {
 	private int textColor;
 	private String translatedName;
 	private byte visible;
+	private Set<CouponAndDiscount> couponAndDiscounts;
 	private MenuCategory menuCategory;
 	private Set<MenuItem> menuItems;
-	private Set<CouponAndDiscount> couponAndDiscounts;
 
 	public MenuGroup() {
 	}
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}
@@ -97,6 +98,17 @@ public class MenuGroup implements Serializable {
 	}
 
 
+	//bi-directional many-to-many association to CouponAndDiscount
+	@ManyToMany(mappedBy="menuGroups")
+	public Set<CouponAndDiscount> getCouponAndDiscounts() {
+		return this.couponAndDiscounts;
+	}
+
+	public void setCouponAndDiscounts(Set<CouponAndDiscount> couponAndDiscounts) {
+		this.couponAndDiscounts = couponAndDiscounts;
+	}
+
+
 	//bi-directional many-to-one association to MenuCategory
 	@ManyToOne
 	@JoinColumn(name="CATEGORY_ID")
@@ -131,17 +143,6 @@ public class MenuGroup implements Serializable {
 		menuItem.setMenuGroup(null);
 
 		return menuItem;
-	}
-
-
-	//bi-directional many-to-many association to CouponAndDiscount
-	@ManyToMany(mappedBy="menuGroups")
-	public Set<CouponAndDiscount> getCouponAndDiscounts() {
-		return this.couponAndDiscounts;
-	}
-
-	public void setCouponAndDiscounts(Set<CouponAndDiscount> couponAndDiscounts) {
-		this.couponAndDiscounts = couponAndDiscounts;
 	}
 
 }

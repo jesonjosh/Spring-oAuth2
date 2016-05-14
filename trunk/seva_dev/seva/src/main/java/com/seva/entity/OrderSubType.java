@@ -13,12 +13,23 @@ import javax.persistence.*;
 @NamedQuery(name="OrderSubType.findAll", query="SELECT o FROM OrderSubType o")
 public class OrderSubType implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private int id;
 	private String name;
 	private OrderType orderType;
 
 	public OrderSubType() {
 	}
 
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return this.name;

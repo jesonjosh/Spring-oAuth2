@@ -1,4 +1,4 @@
-package model;
+package com.seva.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -21,6 +21,7 @@ public class CookingInstruction implements Serializable {
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}

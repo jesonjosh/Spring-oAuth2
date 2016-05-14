@@ -13,6 +13,7 @@ import javax.persistence.*;
 @NamedQuery(name="VirtualprinterOrderType.findAll", query="SELECT v FROM VirtualprinterOrderType v")
 public class VirtualprinterOrderType implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private int id;
 	private String orderType;
 	private VirtualPrinter virtualPrinter;
 
@@ -20,6 +21,15 @@ public class VirtualprinterOrderType implements Serializable {
 	}
 
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	@Column(name="ORDER_TYPE")
 	public String getOrderType() {
 		return this.orderType;

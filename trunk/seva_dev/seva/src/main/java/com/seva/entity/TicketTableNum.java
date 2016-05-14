@@ -19,7 +19,7 @@ public class TicketTableNum implements Serializable {
 	public TicketTableNum() {
 	}
 
-
+	@Id
 	@Column(name="TABLE_ID")
 	public int getTableId() {
 		return this.tableId;

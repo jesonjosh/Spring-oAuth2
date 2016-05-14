@@ -45,6 +45,7 @@ public class Customer implements Serializable {
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="AUTO_ID")
 	public int getAutoId() {
 		return this.autoId;

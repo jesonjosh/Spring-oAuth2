@@ -42,8 +42,8 @@ public class CustomerProperty implements Serializable {
 
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne
-	@JoinColumn(name="id")
+//	@ManyToOne
+//	@JoinColumn(name="id")
 	public Customer getCustomer() {
 		return this.customer;
 	}
