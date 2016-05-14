@@ -7,19 +7,10 @@ package com.seva.models;
  */
 public class ItemDTO {
 	private Long id;
-	private String name;
-	private String description;
-	private String quantity;
-	private String unit;
-	
-	public ItemDTO(Long id, String name, String description, String quantity,String unit) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.quantity = quantity;
-		this.unit= unit;
-	}
+	private String item_name;
+	private String group_name;
+	private String category_name;
+	private String price;
 	
 	public Long getId() {
 		return id;
@@ -27,30 +18,29 @@ public class ItemDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public String getItem_name() {
+		return item_name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setItem_name(String item_name) {
+		this.item_name = item_name;
 	}
-	public String getDescription() {
-		return description;
+	public String getGroup_name() {
+		return group_name;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setGroup_name(String group_name) {
+		this.group_name = group_name;
 	}
-	public String getQuantity() {
-		return quantity;
+	public String getCategory_name() {
+		return category_name;
 	}
-	public void setQuantity(String quantity) {
-		this.quantity = quantity;
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
 	}
-	public String getUnit() {
-		return unit;
+	public String getPrice() {
+		return price;
 	}
-	public void setUnit(String unit) {
-		this.unit = unit;
+	public void setPrice(String price) {
+		this.price = price;
 	}
-	
 	
 }

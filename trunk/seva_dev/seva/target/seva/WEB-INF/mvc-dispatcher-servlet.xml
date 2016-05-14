@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
-  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 	<context:component-scan base-package="com.seva" />
 	<mvc:annotation-driven />
 	
@@ -22,12 +28,18 @@
 	</bean>
 	
 	<!--  Pooled datasource  -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" 
 		destroy-method="close" p:driverClass="${jdbc.driverClassName}"
 		p:jdbcUrl="${jdbc.databaseurl}" p:user="${jdbc.username}" p:password="${jdbc.password}"
 		p:minPoolSize="${minPoolSize}" p:maxPoolSize="${maxPoolSize}"
 		p:checkoutTimeout="${checkoutTimeout}" p:maxIdleTime="${maxIdleTime}"
 		p:idleConnectionTestPeriod="${idleConnectionTestPeriod}" />
+		
+<!-- 		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" -->
+<!-- 		p:driverClassName="com.mysql.jdbc.Driver" -->
+<!-- 		p:url="jdbc:mysql://localhost:3306/posdb"  -->
+<!-- 		p:username="root"  -->
+<!-- 		p:password="root" /> -->
 
 	<!--  Session factory for hibernate -->
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -45,12 +57,40 @@
 <!-- 			<bean class="com.pcs.seva.AuditInterceptor" /> -->
 <!-- 		</property> -->
 	</bean>
-	<bean
-		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 	<!--<tx:annotation-driven transaction-manager="transactionManager" /> -->
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+<!--				<value>*ServiceTx</value>-->
+			<value>*DAOImpl</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+			<value>exceptionInterceptor</value>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="exceptionInterceptor" class="com.seva.framework.interceptor.ExceptionInterceptor"></bean>
+	
+		<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="create*">PROPAGATION_REQUIRED</prop>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
 	</bean>
 	<!-- JDBC Template Bean with -->
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">

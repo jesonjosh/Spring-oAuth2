@@ -21,10 +21,9 @@ public class MenuResource {
 	@Autowired
 	MenuService menuService;
 
-	
 	@RequestMapping(value = "/menu",method = RequestMethod.GET)
 	@ResponseBody
-	public List<ItemDTO> list() {
+	public List<ItemDTO> getItems() {
 		return menuService.getItems();
 
 	}
