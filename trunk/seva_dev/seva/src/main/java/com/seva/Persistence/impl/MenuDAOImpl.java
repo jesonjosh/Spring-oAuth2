@@ -27,12 +27,12 @@ public class MenuDAOImpl extends AbstractDAO implements MenuDAO{
 	
 	public List<ItemDTO> getItems(){
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createSQLQuery("SELECT mi.id,mc.name as category_name,mg.name as group_name,mi.name as item_name,mi.price "
-				+ " FROM menu_item mi "
-				+ " JOIN menu_group mg ON mi.group_id = mg.id "
-				+ " JOIN menu_category mc ON mg.category_id = mc.id "
-				+ " WHERE mi.visible = 1 and mc.visible = 1 and mg.visible = 1 "
-				+ " ORDER BY mc.id, mg.id,mi.id");
+		Query query = session.createSQLQuery("SELECT mi.ID,mc.NAME as category_name,mg.NAME as group_name,mi.NAME as item_name,mi.PRICE "
+				+ " FROM MENU_ITEM mi "
+				+ " JOIN MENU_GROUP mg ON mi.GROUP_ID = mg.ID "
+				+ " JOIN MENU_CATEGORY mc ON mg.CATEGORY_ID = mc.ID "
+				+ " WHERE mi.VISIBLE = 1 and mc.VISIBLE = 1 and mg.VISIBLE = 1 "
+				+ " ORDER BY mc.ID, mg.ID,mi.ID");
 		List<Object> itemObjects = query.list();
 		List<ItemDTO> itemDTOs = new ArrayList<>();
 		for(Object object: itemObjects){
