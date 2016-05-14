@@ -1,4 +1,4 @@
-package model;
+package com.seva.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -25,6 +25,7 @@ public class ActionHistory implements Serializable {
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}

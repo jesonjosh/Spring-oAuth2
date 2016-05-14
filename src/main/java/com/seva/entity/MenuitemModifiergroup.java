@@ -18,8 +18,8 @@ public class MenuitemModifiergroup implements Serializable {
 	private int maxQuantity;
 	private int minQuantity;
 	private int sortOrder;
-	private MenuModifierGroup menuModifierGroup;
 	private MenuItem menuItem;
+	private MenuModifierGroup menuModifierGroup;
 	private Set<TicketitemModifiergroup> ticketitemModifiergroups;
 
 	public MenuitemModifiergroup() {
@@ -27,6 +27,7 @@ public class MenuitemModifiergroup implements Serializable {
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}
@@ -66,18 +67,6 @@ public class MenuitemModifiergroup implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to MenuModifierGroup
-	@ManyToOne
-	@JoinColumn(name="MODIFIER_GROUP")
-	public MenuModifierGroup getMenuModifierGroup() {
-		return this.menuModifierGroup;
-	}
-
-	public void setMenuModifierGroup(MenuModifierGroup menuModifierGroup) {
-		this.menuModifierGroup = menuModifierGroup;
-	}
-
-
 	//bi-directional many-to-one association to MenuItem
 	@ManyToOne
 	@JoinColumn(name="MENUITEM_MODIFIERGROUP_ID")
@@ -87,6 +76,18 @@ public class MenuitemModifiergroup implements Serializable {
 
 	public void setMenuItem(MenuItem menuItem) {
 		this.menuItem = menuItem;
+	}
+
+
+	//bi-directional many-to-one association to MenuModifierGroup
+	@ManyToOne
+	@JoinColumn(name="MODIFIER_GROUP")
+	public MenuModifierGroup getMenuModifierGroup() {
+		return this.menuModifierGroup;
+	}
+
+	public void setMenuModifierGroup(MenuModifierGroup menuModifierGroup) {
+		this.menuModifierGroup = menuModifierGroup;
 	}
 
 

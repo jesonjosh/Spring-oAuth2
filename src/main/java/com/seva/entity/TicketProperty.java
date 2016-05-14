@@ -43,8 +43,8 @@ public class TicketProperty implements Serializable {
 
 
 	//bi-directional many-to-one association to Ticket
-	@ManyToOne
-	@JoinColumn(name="id")
+//	@ManyToOne
+//	@JoinColumn(name="id")
 	public Ticket getTicket() {
 		return this.ticket;
 	}

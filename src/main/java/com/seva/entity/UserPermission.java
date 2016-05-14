@@ -22,6 +22,7 @@ public class UserPermission implements Serializable {
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public String getName() {
 		return this.name;
 	}

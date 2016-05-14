@@ -42,8 +42,8 @@ public class TransactionProperty implements Serializable {
 
 
 	//bi-directional many-to-one association to Transaction
-	@ManyToOne
-	@JoinColumn(name="id")
+//	@ManyToOne
+//	@JoinColumn(name="id")
 	public Transaction getTransaction() {
 		return this.transaction;
 	}

@@ -16,8 +16,8 @@ public class Gratuity implements Serializable {
 	private int id;
 	private double amount;
 	private byte paid;
-	private Ticket ticket;
 	private Terminal terminal;
+	private Ticket ticket;
 	private User user;
 	private Set<Ticket> tickets;
 
@@ -26,6 +26,7 @@ public class Gratuity implements Serializable {
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}
@@ -53,17 +54,6 @@ public class Gratuity implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Ticket
-	@ManyToOne
-	public Ticket getTicket() {
-		return this.ticket;
-	}
-
-	public void setTicket(Ticket ticket) {
-		this.ticket = ticket;
-	}
-
-
 	//bi-directional many-to-one association to Terminal
 	@ManyToOne
 	public Terminal getTerminal() {
@@ -72,6 +62,17 @@ public class Gratuity implements Serializable {
 
 	public void setTerminal(Terminal terminal) {
 		this.terminal = terminal;
+	}
+
+
+	//bi-directional many-to-one association to Ticket
+	@ManyToOne
+	public Ticket getTicket() {
+		return this.ticket;
+	}
+
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
 	}
 
 

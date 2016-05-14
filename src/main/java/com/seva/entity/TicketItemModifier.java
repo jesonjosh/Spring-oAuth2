@@ -29,15 +29,16 @@ public class TicketItemModifier implements Serializable {
 	private double taxAmount;
 	private double totalPrice;
 	private TicketItem ticketItem1;
+	private TicketItem ticketItem2;
 	private TicketitemModifiergroup ticketitemModifiergroup1;
 	private TicketitemModifiergroup ticketitemModifiergroup2;
-	private TicketItem ticketItem2;
 
 	public TicketItemModifier() {
 	}
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}
@@ -199,6 +200,18 @@ public class TicketItemModifier implements Serializable {
 	}
 
 
+	//bi-directional many-to-one association to TicketItem
+	@ManyToOne
+	@JoinColumn(name="TICKET_ITEM_ID")
+	public TicketItem getTicketItem2() {
+		return this.ticketItem2;
+	}
+
+	public void setTicketItem2(TicketItem ticketItem2) {
+		this.ticketItem2 = ticketItem2;
+	}
+
+
 	//bi-directional many-to-one association to TicketitemModifiergroup
 	@ManyToOne
 	@JoinColumn(name="TICKETITEMMODIFIERGROUP_ID")
@@ -220,18 +233,6 @@ public class TicketItemModifier implements Serializable {
 
 	public void setTicketitemModifiergroup2(TicketitemModifiergroup ticketitemModifiergroup2) {
 		this.ticketitemModifiergroup2 = ticketitemModifiergroup2;
-	}
-
-
-	//bi-directional many-to-one association to TicketItem
-	@ManyToOne
-	@JoinColumn(name="TICKET_ITEM_ID")
-	public TicketItem getTicketItem2() {
-		return this.ticketItem2;
-	}
-
-	public void setTicketItem2(TicketItem ticketItem2) {
-		this.ticketItem2 = ticketItem2;
 	}
 
 }

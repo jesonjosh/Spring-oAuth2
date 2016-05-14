@@ -13,12 +13,23 @@ import javax.persistence.*;
 @NamedQuery(name="PrinterGroupPrinter.findAll", query="SELECT p FROM PrinterGroupPrinter p")
 public class PrinterGroupPrinter implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private int id;
 	private String printerName;
 	private PrinterGroup printerGroup;
 
 	public PrinterGroupPrinter() {
 	}
 
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	@Column(name="PRINTER_NAME")
 	public String getPrinterName() {

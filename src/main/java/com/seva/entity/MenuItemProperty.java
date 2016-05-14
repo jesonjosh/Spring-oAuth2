@@ -21,7 +21,7 @@ public class MenuItemProperty implements Serializable {
 	}
 
 
-	@EmbeddedId
+	@Id
 	public MenuItemPropertyPK getId() {
 		return this.id;
 	}
@@ -42,8 +42,8 @@ public class MenuItemProperty implements Serializable {
 
 
 	//bi-directional many-to-one association to MenuItem
-	@ManyToOne
-	@JoinColumn(name="MENU_ITEM_ID")
+//	@ManyToOne
+//	@JoinColumn(name="MENU_ITEM_ID")
 	public MenuItem getMenuItem() {
 		return this.menuItem;
 	}

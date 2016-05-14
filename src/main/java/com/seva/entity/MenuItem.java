@@ -32,14 +32,14 @@ public class MenuItem implements Serializable {
 	private String translatedName;
 	private String unitName;
 	private byte visible;
+	private Set<CouponAndDiscount> couponAndDiscounts;
 	private Set<ItemOrderType> itemOrderTypes;
 	private MenuGroup menuGroup;
 	private PrinterGroup printerGroup;
-	private Tax tax;
 	private Recepie recepieBean;
-	private Set<MenuItemProperty> menuItemProperties;
+	private Tax tax;
 	private Set<Terminal> terminals;
-	private Set<CouponAndDiscount> couponAndDiscounts;
+	private Set<MenuItemProperty> menuItemProperties;
 	private Set<MenuitemModifiergroup> menuitemModifiergroups;
 	private Set<MenuitemShift> menuitemShifts;
 	private Set<Recepie> recepies;
@@ -49,6 +49,7 @@ public class MenuItem implements Serializable {
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}
@@ -223,6 +224,17 @@ public class MenuItem implements Serializable {
 	}
 
 
+	//bi-directional many-to-many association to CouponAndDiscount
+	@ManyToMany(mappedBy="menuItems")
+	public Set<CouponAndDiscount> getCouponAndDiscounts() {
+		return this.couponAndDiscounts;
+	}
+
+	public void setCouponAndDiscounts(Set<CouponAndDiscount> couponAndDiscounts) {
+		this.couponAndDiscounts = couponAndDiscounts;
+	}
+
+
 	//bi-directional many-to-one association to ItemOrderType
 	@OneToMany(mappedBy="menuItem")
 	public Set<ItemOrderType> getItemOrderTypes() {
@@ -272,6 +284,18 @@ public class MenuItem implements Serializable {
 	}
 
 
+	//bi-directional many-to-one association to Recepie
+	@ManyToOne
+	@JoinColumn(name="RECEPIE")
+	public Recepie getRecepieBean() {
+		return this.recepieBean;
+	}
+
+	public void setRecepieBean(Recepie recepieBean) {
+		this.recepieBean = recepieBean;
+	}
+
+
 	//bi-directional many-to-one association to Tax
 	@ManyToOne
 	public Tax getTax() {
@@ -283,15 +307,23 @@ public class MenuItem implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Recepie
-	@ManyToOne
-	@JoinColumn(name="RECEPIE")
-	public Recepie getRecepieBean() {
-		return this.recepieBean;
+	//bi-directional many-to-many association to Terminal
+	@ManyToMany
+	@JoinTable(
+		name="menu_item_terminal_ref"
+		, joinColumns={
+			@JoinColumn(name="MENU_ITEM_ID")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="TERMINAL_ID")
+			}
+		)
+	public Set<Terminal> getTerminals() {
+		return this.terminals;
 	}
 
-	public void setRecepieBean(Recepie recepieBean) {
-		this.recepieBean = recepieBean;
+	public void setTerminals(Set<Terminal> terminals) {
+		this.terminals = terminals;
 	}
 
 
@@ -317,37 +349,6 @@ public class MenuItem implements Serializable {
 		menuItemProperty.setMenuItem(null);
 
 		return menuItemProperty;
-	}
-
-
-	//bi-directional many-to-many association to Terminal
-	@ManyToMany
-	@JoinTable(
-		name="menu_item_terminal_ref"
-		, joinColumns={
-			@JoinColumn(name="MENU_ITEM_ID")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="TERMINAL_ID")
-			}
-		)
-	public Set<Terminal> getTerminals() {
-		return this.terminals;
-	}
-
-	public void setTerminals(Set<Terminal> terminals) {
-		this.terminals = terminals;
-	}
-
-
-	//bi-directional many-to-many association to CouponAndDiscount
-	@ManyToMany(mappedBy="menuItems")
-	public Set<CouponAndDiscount> getCouponAndDiscounts() {
-		return this.couponAndDiscounts;
-	}
-
-	public void setCouponAndDiscounts(Set<CouponAndDiscount> couponAndDiscounts) {
-		this.couponAndDiscounts = couponAndDiscounts;
 	}
 
 

@@ -33,9 +33,9 @@ public class InventoryItem implements Serializable {
 	private double unitSellingPrice;
 	private byte visible;
 	private InventoryGroup inventoryGroup;
-	private PackagingUnit packagingUnit;
 	private InventoryLocation inventoryLocation;
 	private InventoryVendor inventoryVendor;
+	private PackagingUnit packagingUnit;
 	private Set<InventoryTransaction> inventoryTransactions;
 	private Set<RecepieItem> recepieItems;
 
@@ -44,6 +44,7 @@ public class InventoryItem implements Serializable {
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}
@@ -224,18 +225,6 @@ public class InventoryItem implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to PackagingUnit
-	@ManyToOne
-	@JoinColumn(name="PUNIT_ID")
-	public PackagingUnit getPackagingUnit() {
-		return this.packagingUnit;
-	}
-
-	public void setPackagingUnit(PackagingUnit packagingUnit) {
-		this.packagingUnit = packagingUnit;
-	}
-
-
 	//bi-directional many-to-one association to InventoryLocation
 	@ManyToOne
 	@JoinColumn(name="ITEM_LOCATION_ID")
@@ -257,6 +246,18 @@ public class InventoryItem implements Serializable {
 
 	public void setInventoryVendor(InventoryVendor inventoryVendor) {
 		this.inventoryVendor = inventoryVendor;
+	}
+
+
+	//bi-directional many-to-one association to PackagingUnit
+	@ManyToOne
+	@JoinColumn(name="PUNIT_ID")
+	public PackagingUnit getPackagingUnit() {
+		return this.packagingUnit;
+	}
+
+	public void setPackagingUnit(PackagingUnit packagingUnit) {
+		this.packagingUnit = packagingUnit;
 	}
 
 

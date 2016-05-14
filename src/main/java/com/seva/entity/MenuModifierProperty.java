@@ -42,8 +42,8 @@ public class MenuModifierProperty implements Serializable {
 
 
 	//bi-directional many-to-one association to MenuModifier
-	@ManyToOne
-	@JoinColumn(name="MENU_MODIFIER_ID")
+//	@ManyToOne
+//	@JoinColumn(name="MENU_MODIFIER_ID")
 	public MenuModifier getMenuModifier() {
 		return this.menuModifier;
 	}

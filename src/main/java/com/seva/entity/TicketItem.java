@@ -38,8 +38,8 @@ public class TicketItem implements Serializable {
 	private double taxAmountWithoutModifiers;
 	private double totalPrice;
 	private double totalPriceWithoutModifiers;
-	private Ticket ticket;
 	private PrinterGroup printerGroup;
+	private Ticket ticket;
 	private Set<TicketItemCookingInstruction> ticketItemCookingInstructions;
 	private Set<TicketItemDiscount> ticketItemDiscounts;
 	private Set<TicketItemModifier> ticketItemModifiers1;
@@ -52,6 +52,7 @@ public class TicketItem implements Serializable {
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}
@@ -289,17 +290,6 @@ public class TicketItem implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Ticket
-	@ManyToOne
-	public Ticket getTicket() {
-		return this.ticket;
-	}
-
-	public void setTicket(Ticket ticket) {
-		this.ticket = ticket;
-	}
-
-
 	//bi-directional many-to-one association to PrinterGroup
 	@ManyToOne
 	@JoinColumn(name="PG_ID")
@@ -309,6 +299,17 @@ public class TicketItem implements Serializable {
 
 	public void setPrinterGroup(PrinterGroup printerGroup) {
 		this.printerGroup = printerGroup;
+	}
+
+
+	//bi-directional many-to-one association to Ticket
+	@ManyToOne
+	public Ticket getTicket() {
+		return this.ticket;
+	}
+
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
 	}
 
 

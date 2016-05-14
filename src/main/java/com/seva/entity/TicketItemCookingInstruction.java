@@ -51,8 +51,8 @@ public class TicketItemCookingInstruction implements Serializable {
 
 
 	//bi-directional many-to-one association to TicketItem
-	@ManyToOne
-	@JoinColumn(name="TICKET_ITEM_ID")
+//	@ManyToOne
+//	@JoinColumn(name="TICKET_ITEM_ID")
 	public TicketItem getTicketItem() {
 		return this.ticketItem;
 	}

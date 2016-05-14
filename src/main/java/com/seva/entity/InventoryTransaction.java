@@ -20,17 +20,18 @@ public class InventoryTransaction implements Serializable {
 	private int tranType;
 	private Date transactionDate;
 	private double unitPrice;
-	private PurchaseOrder purchaseOrder;
 	private InventoryItem inventoryItem;
 	private InventoryVendor inventoryVendor;
 	private InventoryWarehouse inventoryWarehouse1;
 	private InventoryWarehouse inventoryWarehouse2;
+	private PurchaseOrder purchaseOrder;
 
 	public InventoryTransaction() {
 	}
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}
@@ -89,18 +90,6 @@ public class InventoryTransaction implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to PurchaseOrder
-	@ManyToOne
-	@JoinColumn(name="REFERENCE_ID")
-	public PurchaseOrder getPurchaseOrder() {
-		return this.purchaseOrder;
-	}
-
-	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
-		this.purchaseOrder = purchaseOrder;
-	}
-
-
 	//bi-directional many-to-one association to InventoryItem
 	@ManyToOne
 	@JoinColumn(name="ITEM_ID")
@@ -146,6 +135,18 @@ public class InventoryTransaction implements Serializable {
 
 	public void setInventoryWarehouse2(InventoryWarehouse inventoryWarehouse2) {
 		this.inventoryWarehouse2 = inventoryWarehouse2;
+	}
+
+
+	//bi-directional many-to-one association to PurchaseOrder
+	@ManyToOne
+	@JoinColumn(name="REFERENCE_ID")
+	public PurchaseOrder getPurchaseOrder() {
+		return this.purchaseOrder;
+	}
+
+	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+		this.purchaseOrder = purchaseOrder;
 	}
 
 }

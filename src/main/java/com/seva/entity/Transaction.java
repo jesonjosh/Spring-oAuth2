@@ -41,17 +41,18 @@ public class Transaction implements Serializable {
 	private Date transactionTime;
 	private String transactionType;
 	private Set<TransactionProperty> transactionProperties;
-	private Ticket ticket;
-	private Terminal terminal;
-	private User user;
-	private PayoutRecepient payoutRecepient;
 	private PayoutReason payoutReason;
+	private PayoutRecepient payoutRecepient;
+	private Terminal terminal;
+	private Ticket ticket;
+	private User user;
 
 	public Transaction() {
 	}
 
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}
@@ -323,37 +324,15 @@ public class Transaction implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Ticket
+	//bi-directional many-to-one association to PayoutReason
 	@ManyToOne
-	public Ticket getTicket() {
-		return this.ticket;
+	@JoinColumn(name="PAYOUT_REASON_ID")
+	public PayoutReason getPayoutReason() {
+		return this.payoutReason;
 	}
 
-	public void setTicket(Ticket ticket) {
-		this.ticket = ticket;
-	}
-
-
-	//bi-directional many-to-one association to Terminal
-	@ManyToOne
-	public Terminal getTerminal() {
-		return this.terminal;
-	}
-
-	public void setTerminal(Terminal terminal) {
-		this.terminal = terminal;
-	}
-
-
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="USER_ID")
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setPayoutReason(PayoutReason payoutReason) {
+		this.payoutReason = payoutReason;
 	}
 
 
@@ -369,15 +348,37 @@ public class Transaction implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to PayoutReason
+	//bi-directional many-to-one association to Terminal
 	@ManyToOne
-	@JoinColumn(name="PAYOUT_REASON_ID")
-	public PayoutReason getPayoutReason() {
-		return this.payoutReason;
+	public Terminal getTerminal() {
+		return this.terminal;
 	}
 
-	public void setPayoutReason(PayoutReason payoutReason) {
-		this.payoutReason = payoutReason;
+	public void setTerminal(Terminal terminal) {
+		this.terminal = terminal;
+	}
+
+
+	//bi-directional many-to-one association to Ticket
+	@ManyToOne
+	public Ticket getTicket() {
+		return this.ticket;
+	}
+
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
+	}
+
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="USER_ID")
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

@@ -13,6 +13,7 @@ import javax.persistence.*;
 @NamedQuery(name="DrawerPullReportVoidticket.findAll", query="SELECT d FROM DrawerPullReportVoidticket d")
 public class DrawerPullReportVoidticket implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private int id;
 	private double amount;
 	private int code;
 	private String hast;
@@ -23,6 +24,15 @@ public class DrawerPullReportVoidticket implements Serializable {
 	public DrawerPullReportVoidticket() {
 	}
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public double getAmount() {
 		return this.amount;
