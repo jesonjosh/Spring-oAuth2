@@ -25,6 +25,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 * To load user details.
 	 */
 	public UserDetails loadUserByUsername(String username) {
+		System.out.println("username:-- "+username);
+		
 		LoginDTO loginVO = userDAO.fetchLoginCredentialsByLoginId(username);
 		if (loginVO == null) {
 			throw new UsernameNotFoundException("user not found");

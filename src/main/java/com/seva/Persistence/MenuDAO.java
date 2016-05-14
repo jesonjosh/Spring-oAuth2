@@ -1,5 +1,8 @@
 package com.seva.Persistence;
 
+import java.util.List;
+
+import com.seva.models.ItemDTO;
 /***
  * 
  * @author Joshua
@@ -7,5 +10,5 @@ package com.seva.Persistence;
  */
 public interface MenuDAO {
 
-	int getCustomerId();
+	List<ItemDTO> getItems();
 }

@@ -1,6 +1,5 @@
 package com.seva.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +20,7 @@ public class MenuServiceImpl implements MenuService {
 	MenuDAO menuDAO;
 	@Override
 	public List<ItemDTO> getItems() {
-		
-		List<ItemDTO> items = new ArrayList<ItemDTO>();
-		items.add(new ItemDTO(1L,"Capuchino","capuchino","100","ml"));
-		menuDAO.getCustomerId();
-		return items;
+		return menuDAO.getItems();
 	}
 
 }
