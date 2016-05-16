@@ -16,6 +16,8 @@
 	<context:component-scan base-package="com.seva" />
 	<mvc:annotation-driven />
 	
+        <mvc:resources mapping="/resources/**" location="/resources/" />
+
 	<!--  Read from property files -->
 	<bean id="propertyConfigurer"
 		class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
