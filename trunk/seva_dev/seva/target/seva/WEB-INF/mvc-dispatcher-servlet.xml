@@ -16,6 +16,8 @@
 	<context:component-scan base-package="com.seva" />
 	<mvc:annotation-driven />
 	
+        <mvc:resources mapping="/resources/**" location="/resources/" />
+
 	<!--  Read from property files -->
 	<bean id="propertyConfigurer"
 		class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
@@ -34,7 +36,8 @@
 		p:minPoolSize="${minPoolSize}" p:maxPoolSize="${maxPoolSize}"
 		p:checkoutTimeout="${checkoutTimeout}" p:maxIdleTime="${maxIdleTime}"
 		p:idleConnectionTestPeriod="${idleConnectionTestPeriod}" />
-		
+	
+	<!--  Normal Spring JDBC datasource -->	
 <!-- 		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" -->
 <!-- 		p:driverClassName="com.mysql.jdbc.Driver" -->
 <!-- 		p:url="jdbc:mysql://localhost:3306/posdb"  -->
@@ -65,7 +68,6 @@
 	<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
 		<property name="beanNames">
 			<list>
-<!--				<value>*ServiceTx</value>-->
 			<value>*DAOImpl</value>
 			</list>
 		</property>
