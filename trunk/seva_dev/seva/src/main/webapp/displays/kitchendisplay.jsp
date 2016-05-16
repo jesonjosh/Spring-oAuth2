@@ -73,7 +73,7 @@
                 <script>
                     function getOrders() {
                         console.log('Calling getOrders');
-                        $( "#images" ).empty();
+                        $( "#currentOrder" ).empty();
                       var flickerAPI = "http://localhost:8080/seva/menu";
                       $.getJSON( flickerAPI, {
                         format: "json"
@@ -81,10 +81,7 @@
                         .done(function( datas ) {
                           $.each( datas, function( i, data ) {
                               console.log(data.item_name);
-                            $( "<div />" ).append(data.item_name).appendTo( "#images" );
-                            if ( i === 4 ) {
-                              return false;
-                            }
+                            $( "<tr />" ).append(" <td /> ").append(data.item_name).appendTo( "#currentOrder" );
                           });
                         });
                     };
@@ -128,7 +125,7 @@
                                           <th><font size="+<%=titleFontSize%>" >Quantity</font></th>
                                           <th><font size="+<%=titleFontSize%>" >Specifications</font></th>
                                           </thead>
-                                          <tbody>
+                                          <tbody id="currentOrder">
                                               <tr><td colspan="4"><hr/></td></tr>
                                           <tr>
                                               <td width="10%"><font size="+<%=fontSize%>" >1</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Idly</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
