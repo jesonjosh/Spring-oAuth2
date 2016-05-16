@@ -14,9 +14,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="10">
+  
 
-  <title>Smart Restaurant</title>
+  <title>Smart Restaurant - Kitchen</title>
 
   <jsp:include page="../bootstrap_header.jsp" />
   
@@ -65,31 +65,32 @@
                         </div>
                       </div>
                   </div>
-          </div>
-                    <div class="row">
-                  <div id="images"></div>
-                  </div>
+                <div class="row">
+                    <div id="images"></div>
+                </div>
+            </div>
                     
-                    
-                    <script>
-                    (function() {
-                      var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+                <script>
+                    function getOrders() {
+                        console.log('Calling getOrders');
+                        $( "#images" ).empty();
+                      var flickerAPI = "http://localhost:8080/seva/menu";
                       $.getJSON( flickerAPI, {
-                        tags: "mount rainier",
-                        tagmode: "any",
                         format: "json"
                       })
-                        .done(function( data ) {
-                          $.each( data.items, function( i, item ) {
-                            $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
-                            if ( i === 3 ) {
+                        .done(function( datas ) {
+                          $.each( datas, function( i, data ) {
+                              console.log(data.item_name);
+                            $( "<div />" ).append(data.item_name).appendTo( "#images" );
+                            if ( i === 4 ) {
                               return false;
                             }
                           });
                         });
-                    })();
+                    };
+                    setInterval('getOrders()', 5000);
                 </script>
-      </div>
+
                     
         <div class="col-md-10 col-sm-10 col-xs-12">
         <div class="">

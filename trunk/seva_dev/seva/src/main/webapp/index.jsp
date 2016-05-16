@@ -39,7 +39,7 @@
         </div>
         
         <div class="row">
-            <a href="displays/display1.jsp">
+            <a href="displays/kitchendisplay.jsp">
                 <div class="animated flipInY col-lg-2 col-md-2 col-sm-2 col-xs-12">
                     <div class="tile-stats">
 
