@@ -13,7 +13,11 @@ import com.seva.models.LoginDTO;
 public class UserDAOImpl extends AbstractDAO implements UserDAO {
 	
 	public LoginDTO fetchLoginCredentialsByLoginId(String loginId) {
-		LoginDTO loginDTO = null;
+		LoginDTO loginDTO = new LoginDTO();
+		loginDTO.setUserId("123");
+		loginDTO.setUserPassword("1111");
+		loginDTO.setUser_authority("ROLE_APP");
+		
 //		Session session = sessionFactory.getCurrentSession();
 //		Query query = session.createSQLQuery("select user_id,user_pass,first_name,last_name,active,n_user_type from users where user_id =:userId")
 //											.addEntity(User.class)
