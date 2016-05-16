@@ -24,14 +24,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	/**
 	 * To load user details.
 	 */
+	@Override
 	public UserDetails loadUserByUsername(String username) {
-		System.out.println("username:-- "+username);
-		
-		LoginDTO loginVO = userDAO.fetchLoginCredentialsByLoginId(username);
-		if (loginVO == null) {
+		LoginDTO loginDTO = null;
+		try{
+		loginDTO = userDAO.fetchLoginCredentialsByLoginId(username);
+		if (loginDTO == null) {
 			throw new UsernameNotFoundException("user not found");
 		}
-		return populateUserEntity(loginVO);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return populateUserEntity(loginDTO);
 	}
 	
 	/**

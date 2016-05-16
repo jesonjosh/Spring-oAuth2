@@ -11,5 +11,5 @@ import com.seva.models.ItemDTO;
  */
 
 public interface MenuService {
-	public List<ItemDTO> getItems();
+	List<ItemDTO> getItems();
 }
