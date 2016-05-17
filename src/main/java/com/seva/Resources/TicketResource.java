@@ -28,7 +28,7 @@ public class TicketResource {
 	@Autowired
 	private TicketService ticketService;
 
-	@RequestMapping(value = "/ticket", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/ticket", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<TicketDTO>> getTicket() {
 		List<TicketDTO> ticketDTOs = new ArrayList<>();
 		ticketDTOs = ticketService.getTickets();

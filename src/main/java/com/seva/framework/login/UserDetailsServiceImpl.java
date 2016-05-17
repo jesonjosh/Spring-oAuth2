@@ -3,6 +3,7 @@ package com.seva.framework.login;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -19,6 +20,7 @@ import com.seva.models.LoginDTO;
 @Service("userDetailsServiceTx")
 public class UserDetailsServiceImpl implements UserDetailsService {
 	
+	@Autowired
 	private UserDAO userDAO;
 	
 	/**
@@ -27,13 +29,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) {
 		LoginDTO loginDTO = null;
-		try{
 		loginDTO = userDAO.fetchLoginCredentialsByLoginId(username);
 		if (loginDTO == null) {
 			throw new UsernameNotFoundException("user not found");
-		}
-		}catch(Exception e){
-			e.printStackTrace();
 		}
 		return populateUserEntity(loginDTO);
 	}
@@ -53,7 +51,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		boolean credentialsNonExpired = enabled;
 		boolean accountNonLocked = enabled;
 		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-			authorities.add(new SimpleGrantedAuthority(loginVO.getUser_authority()));
+			authorities.add(new SimpleGrantedAuthority("ROLE_APP"));
 			
 			User user = new UserImpl(username, password, enabled,
 					accountNonExpired, credentialsNonExpired, accountNonLocked,

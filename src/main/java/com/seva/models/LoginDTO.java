@@ -1,6 +1,7 @@
 package com.seva.models;
 
 import java.util.Date;
+import java.util.List;
 
 public class LoginDTO {
 	private Short version;
@@ -11,7 +12,9 @@ public class LoginDTO {
 	private String updatedBy;
 	private Date updatedOn;
 	private String customerName;
+	private String user_authority_id;
 	private String user_authority;
+	private List<UserPermissionDTO> userPermissions = null;
 	public Short getVersion() {
 		return version;
 	}
@@ -65,6 +68,18 @@ public class LoginDTO {
 	}
 	public void setUser_authority(String user_authority) {
 		this.user_authority = user_authority;
+	}
+	public String getUser_authority_id() {
+		return user_authority_id;
+	}
+	public void setUser_authority_id(String user_authority_id) {
+		this.user_authority_id = user_authority_id;
+	}
+	public List<UserPermissionDTO> getUserPermissions() {
+		return userPermissions;
+	}
+	public void setUserPermissions(List<UserPermissionDTO> userPermissions) {
+		this.userPermissions = userPermissions;
 	}
 
 }
