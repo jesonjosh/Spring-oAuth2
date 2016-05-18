@@ -22,6 +22,24 @@
 </head>
 
 <body class="nav-md">
+    
+    <script>
+        function getAccessToken() {
+          var flickerAPI = "http://localhost:8080/seva/oauth/token?grant_type=password&client_id=hotelparagon&client_secret=hotelparagon&username=123&password=1111";
+          $.getJSON( flickerAPI, {
+            format: "json"
+          })
+            .done(function( datas ) {
+              $.each( datas, function( key, value ) {
+                    console.log(key + " : " + value);
+                    <%
+                        session.setAttribute("test", "value1");
+                    %>
+              });
+            });
+        };
+        getAccessToken();
+    </script>
 
   <div class="container body" >
 

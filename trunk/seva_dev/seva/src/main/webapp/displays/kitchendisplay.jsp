@@ -30,8 +30,6 @@
     int itemCount = 15;
 %>
 
-
-
 <body class="nav-md" style="height: 1024px;">
 
   <div class="container body bg-success" >
@@ -74,7 +72,7 @@
                     function getOrders() {
                         console.log('Calling getOrders');
                         $( "#currentOrder" ).empty();
-                      var flickerAPI = "http://localhost:8080/seva/menu";
+                      var flickerAPI = "http://localhost:8080/seva/api/menu?access_token=<%=session.getAttribute("accessToken")%>";
                       $.getJSON( flickerAPI, {
                         format: "json"
                       })
