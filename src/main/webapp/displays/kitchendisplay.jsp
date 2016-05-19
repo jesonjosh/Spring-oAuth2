@@ -4,6 +4,15 @@
     Author     : pcseg330
 --%>
 
+<%@page import="java.io.InputStreamReader"%>
+<%@page import="java.io.BufferedReader"%>
+<%@page import="java.net.URL"%>
+
+<%@page import="org.json.simple.JSONValue"%>
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="org.json.simple.parser.ParseException"%>
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,27 +72,25 @@
                         </div>
                       </div>
                   </div>
-                <div class="row">
-                    <div id="images"></div>
-                </div>
             </div>
-                    
                 <script>
                     function getOrders() {
                         console.log('Calling getOrders');
-                        $( "#currentOrder" ).empty();
-                      var flickerAPI = "http://localhost:8080/seva/api/menu?access_token=<%=session.getAttribute("accessToken")%>";
-                      $.getJSON( flickerAPI, {
+                      var accessURL = "http://localhost:8080/seva/api/ticket?access_token=<%=session.getAttribute("accessToken")%>";
+                      $.getJSON( accessURL, {
                         format: "json"
                       })
                         .done(function( datas ) {
+                        $( "#currentOrder" ).empty();
                           $.each( datas, function( i, data ) {
-                              console.log(data.item_name);
-                            $( "<tr />" ).append(" <td /> ").append(data.item_name).appendTo( "#currentOrder" );
+                            $( "<tr />" )
+                                    .append( "<td width=\"10%\"><font size=+2>" + (i + 1) + "</font></td><td><font size=+2><strong>" + data.item_name + "</strong></font></td><td><font size=+2>" + data.item_quantity + "</font></td>")
+                                    .appendTo( "#currentOrder" );
                           });
                         });
                     };
-                    setInterval('getOrders()', 5000);
+                    getOrders();
+                    setInterval('getOrders()', 10000);
                 </script>
 
                     
@@ -124,55 +131,7 @@
                                           <th><font size="+<%=titleFontSize%>" >Specifications</font></th>
                                           </thead>
                                           <tbody id="currentOrder">
-                                              <tr><td colspan="4"><hr/></td></tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >1</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Idly</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >2</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Dosa</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >3</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Puttu</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >4</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Chicken Chilli</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1</strong></font></td><td width="30%"><font size="+<%=fontSize%>" >Spicy</font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >5</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Idly</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >6</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Dosa</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >7</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Puttu</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >8</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Idly</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >9</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Dosa</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >10</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Puttu</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >11</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Idly</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >12</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Dosa</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >13</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Puttu</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >14</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Idly</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >15</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Dosa</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
-                                          <tr>
-                                              <td width="10%"><font size="+<%=fontSize%>" >16</font></td><td width="45%"><font size="+<%=fontSize%>" ><strong>Puttu</strong></font></td><td width="15%"><font size="+<%=fontSize%>" ><strong>1 set</strong></font></td><td width="30%"><font size="+<%=fontSize%>" ></font></td>
-                                          </tr>
+                                              
                                           </tbody>
                                       </table>
                                   </div>
