@@ -28,6 +28,10 @@ public class TicketResource {
 	@Autowired
 	private TicketService ticketService;
 
+	/***
+	 * Method: To get all open tickets
+	 * @return
+	 */
 	@RequestMapping(value = "/ticket", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<TicketDTO>> getTicket() {
 		List<TicketDTO> ticketDTOs = new ArrayList<>();
@@ -35,8 +39,14 @@ public class TicketResource {
 		return new ResponseEntity<List<TicketDTO>>(ticketDTOs, HttpStatus.OK);
 	}
 	
+	/***
+	 * @Method: To place an order
+	 * @param ticketDTO
+	 * @return
+	 */
 	@RequestMapping(value = "/ticket", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<TicketDTO> createTicket(@RequestBody TicketDTO ticketDTO) {
+		ticketService.saveTicket(ticketDTO);
 		return new ResponseEntity<TicketDTO>(ticketDTO, HttpStatus.OK);
 	}
 

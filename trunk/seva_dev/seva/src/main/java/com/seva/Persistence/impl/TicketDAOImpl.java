@@ -44,12 +44,12 @@ public class TicketDAOImpl extends AbstractDAO implements TicketDAO {
  * @Method: To save/ update a ticket
  */
 	@Override
-	public String saveTicket(Ticket ticket){
+	public Ticket saveTicket(Ticket ticket){
 		
 		Session session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(ticket);
 		
-		return null;
+		return ticket;
 	}
 	@Override
 	public Ticket getTicket(Long id) {

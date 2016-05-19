@@ -38,7 +38,7 @@ public class MenuDAOImpl extends AbstractDAO implements MenuDAO{
 		for(Object object: itemObjects){
 			Object[] item = (Object[])object;
 			ItemDTO itemDTO = new ItemDTO();
-			itemDTO.setId(Long.parseLong(String.valueOf(item[0])));
+			itemDTO.setId(String.valueOf(item[0]));
 			itemDTO.setCategory_name(String.valueOf(item[1]));
 			itemDTO.setGroup_name(String.valueOf(item[2]));
 			itemDTO.setItem_name(String.valueOf(item[3]));

@@ -1,11 +1,15 @@
 package com.seva.models;
 
+import java.util.List;
+
 public class TicketDTO {
 
 	private String id;
 	private String create_date;
 	private String active_date;
 	private String created_hour;
+	private String advanceAmount;
+	private String closingDate;
 	private String is_paid;
 	private String item_id;
 	private String item_count;
@@ -18,6 +22,10 @@ public class TicketDTO {
 	private String sub_total;
 	private String total_price;
 	private String table_id;
+	private String deliveryDate;
+	private String deliveryAddress;
+	private String guest_count;
+	private List<ItemDTO> items = null;
 	public String getId() {
 		return id;
 	}
@@ -53,6 +61,12 @@ public class TicketDTO {
 	}
 	public void setItem_id(String item_id) {
 		this.item_id = item_id;
+	}
+	public String getAdvanceAmount() {
+		return advanceAmount;
+	}
+	public void setAdvanceAmount(String advanceAmount) {
+		this.advanceAmount = advanceAmount;
 	}
 	public String getItem_count() {
 		return item_count;
@@ -113,6 +127,36 @@ public class TicketDTO {
 	}
 	public void setTable_id(String table_id) {
 		this.table_id = table_id;
+	}
+	public String getClosingDate() {
+		return closingDate;
+	}
+	public void setClosingDate(String closingDate) {
+		this.closingDate = closingDate;
+	}
+	public String getDeliveryDate() {
+		return deliveryDate;
+	}
+	public void setDeliveryDate(String deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+	public String getDeliveryAddress() {
+		return deliveryAddress;
+	}
+	public void setDeliveryAddress(String deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
+	}
+	public List<ItemDTO> getItems() {
+		return items;
+	}
+	public void setItems(List<ItemDTO> items) {
+		this.items = items;
+	}
+	public String getGuest_count() {
+		return guest_count;
+	}
+	public void setGuest_count(String guest_count) {
+		this.guest_count = guest_count;
 	}
 	
 }
