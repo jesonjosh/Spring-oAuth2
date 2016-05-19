@@ -1,3 +1,10 @@
+<%@page import="java.io.InputStreamReader"%>
+<%@page import="java.io.BufferedReader"%>
+<%@page import="java.net.URL"%>
+<%@page import="org.json.simple.JSONValue"%>
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="org.json.simple.parser.ParseException"%>
+
 <!-- 
     Document   : index
     Created on : May 1, 2016, 2:04:49 PM
@@ -5,6 +12,7 @@
 -->
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,24 +31,27 @@
 
 <body class="nav-md">
     
-    <script>
-        function getAccessToken() {
-          var flickerAPI = "http://localhost:8080/seva/oauth/token?grant_type=password&client_id=hotelparagon&client_secret=hotelparagon&username=123&password=1111";
-          $.getJSON( flickerAPI, {
-            format: "json"
-          })
-            .done(function( datas ) {
-              $.each( datas, function( key, value ) {
-                    console.log(key + " : " + value);
-                    <%
-                        session.setAttribute("test", "value1");
-                    %>
-              });
-            });
-        };
-        getAccessToken();
-    </script>
+    <%
+        try{
+            URL loginURL = new URL("http://localhost:8080/seva/oauth/token?grant_type=password&client_id=hotelparagon&client_secret=hotelparagon&username=123&password=1111");
+            BufferedReader in = new BufferedReader(
+            new InputStreamReader(loginURL.openStream()));
 
+            String inputLine;
+            while ((inputLine = in.readLine()) != null)
+                try{
+                    JSONObject accessToken = (JSONObject)JSONValue.parseWithException(inputLine);
+                    session.setAttribute("accessToken", accessToken.get("access_token"));
+                }catch(ParseException pe){
+                   System.out.println("position: " + pe.getPosition());
+                   System.out.println(pe);
+                }
+            
+            
+                in.close();
+            }catch(Exception ex){}
+    %>
+    
   <div class="container body" >
 
 
