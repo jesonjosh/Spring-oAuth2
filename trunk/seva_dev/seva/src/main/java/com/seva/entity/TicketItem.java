@@ -304,6 +304,7 @@ public class TicketItem implements Serializable {
 
 	//bi-directional many-to-one association to Ticket
 	@ManyToOne
+	@JoinColumn(name = "TICKET_ID", nullable = false)
 	public Ticket getTicket() {
 		return this.ticket;
 	}

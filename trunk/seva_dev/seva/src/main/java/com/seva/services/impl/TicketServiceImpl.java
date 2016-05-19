@@ -37,7 +37,6 @@ public class TicketServiceImpl implements TicketService {
 			ticketEntity.setCreateDate(currentTime.getTime());
 			ticketEntity.setCreationHour(currentTime.get(Calendar.HOUR_OF_DAY));
 			ticketEntity.setActiveDate(currentTime.getTime());
-//			ticketEntity.setAdvanceAmount(Double.valueOf(ticketDTO.getAdvanceAmount()));
 			// Setting the delivery date as 10 min from ticket creatin time
 			currentTime.add(Calendar.MINUTE, 10);
 			ticketEntity.setDeliveeryDate(currentTime.getTime());
@@ -45,6 +44,7 @@ public class TicketServiceImpl implements TicketService {
 			ticketEntity.setNumberOfGuests(Integer.valueOf(ticketDTO.getGuest_count()));
 			copyTicketEntityProp(ticketDTO, ticketEntity);
 			
+//			ticketEntity.setAdvanceAmount(Double.valueOf(ticketDTO.getAdvanceAmount()));
 //			ticketEntity.setClosingDate(formatter.parse(ticketDTO.getClosingDate()));
 //			ticketEntity.setCustomerPickeup(customerPickeup);
 //			ticketEntity.setDeliveryCharge(deliveryCharge);
