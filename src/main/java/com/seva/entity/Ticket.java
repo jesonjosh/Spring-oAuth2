@@ -480,7 +480,7 @@ public class Ticket implements Serializable {
 
 
 	//bi-directional many-to-one association to TicketItem
-	@OneToMany(mappedBy="ticket")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "ticket",cascade = CascadeType.ALL,orphanRemoval = true)
 	public Set<TicketItem> getTicketItems() {
 		return this.ticketItems;
 	}
