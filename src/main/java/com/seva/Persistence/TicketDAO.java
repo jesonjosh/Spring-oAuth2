@@ -22,6 +22,6 @@ public interface TicketDAO {
 	 * @param ticket
 	 * @return
 	 */
-	String saveTicket(Ticket ticket);
+	public Ticket saveTicket(Ticket ticket);
 
 }
