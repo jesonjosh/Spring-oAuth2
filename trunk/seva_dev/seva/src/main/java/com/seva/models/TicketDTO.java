@@ -10,11 +10,12 @@ public class TicketDTO {
 	private String created_hour;
 	private String advanceAmount;
 	private String is_paid;
-	private String table_id;
 	private String deliveryDate;
 	private String deliveryAddress;
 	private String guest_count;
+	private String ticket_type;
 	private List<ItemDTO> items = null;
+	private List<ShopTableDTO> shopTables = null;
 	public String getId() {
 		return id;
 	}
@@ -51,12 +52,6 @@ public class TicketDTO {
 	public void setIs_paid(String is_paid) {
 		this.is_paid = is_paid;
 	}
-	public String getTable_id() {
-		return table_id;
-	}
-	public void setTable_id(String table_id) {
-		this.table_id = table_id;
-	}
 	public String getDeliveryDate() {
 		return deliveryDate;
 	}
@@ -80,6 +75,18 @@ public class TicketDTO {
 	}
 	public void setItems(List<ItemDTO> items) {
 		this.items = items;
+	}
+	public List<ShopTableDTO> getShopTables() {
+		return shopTables;
+	}
+	public void setShopTables(List<ShopTableDTO> shopTables) {
+		this.shopTables = shopTables;
+	}
+	public String getTicket_type() {
+		return ticket_type;
+	}
+	public void setTicket_type(String ticket_type) {
+		this.ticket_type = ticket_type;
 	}
 	
 

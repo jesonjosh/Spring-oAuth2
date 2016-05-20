@@ -2,6 +2,7 @@ package com.seva.Persistence.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Repository;
 import com.seva.Persistence.AbstractDAO;
 import com.seva.Persistence.TicketDAO;
 import com.seva.entity.Ticket;
+import com.seva.entity.TicketTableNum;
 import com.seva.models.ItemDTO;
+import com.seva.models.ShopTableDTO;
 import com.seva.models.TicketDTO;
 
 @Repository
@@ -25,15 +28,15 @@ public class TicketDAOImpl extends AbstractDAO implements TicketDAO {
 	public List<TicketDTO> getTickets() {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createSQLQuery(
-				" SELECT TKT.ID,TKT.CREATE_DATE,TKT.ACTIVE_DATE,TKT.CREATION_HOUR,TKT.PAID,TTN.TABLE_ID "
-						+ " FROM TICKET AS TKT " + " LEFT OUTER JOIN TICKET_TABLE_NUM AS TTN ON TTN.TICKET_ID = TKT.ID"
-						+ " WHERE TKT.CLOSING_DATE IS NULL; ");
+				" SELECT TKT.ID,TKT.CREATE_DATE,TKT.ACTIVE_DATE,TKT.CREATION_HOUR,TKT.PAID"
+			  + " FROM TICKET AS TKT WHERE TKT.CLOSING_DATE IS NULL; ");
 		List<Object> ticketObjects = query.list();
 		List<TicketDTO> ticketDTOs = new ArrayList<>();
 		for (Object object : ticketObjects) {
 			Object[] ticket = (Object[]) object;
 			TicketDTO ticketDTO = copyProperties(ticket);
-
+			
+			// Fetch all items in a ticket
 			Query itemQuery = session
 					.createSQLQuery(
 							"SELECT TIT.ITEM_ID,TIT.ITEM_COUNT,TIT.ITEM_NAME,TIT.GROUP_NAME,TIT.CATEGORY_NAME, TIT.ITEM_PRICE"
@@ -44,10 +47,23 @@ public class TicketDAOImpl extends AbstractDAO implements TicketDAO {
 			for (Object itemObject : itemObjects) {
 				Object[] item = (Object[]) itemObject;
 				ItemDTO itemDTO = copyTicketItemsProp(item);
-
 				itemDTOs.add(itemDTO);
 			}
 			ticketDTO.setItems(itemDTOs);
+			
+			// Fetch table details
+			Query tableQuery = session
+					.createSQLQuery("SELECT TABLE_ID FROM TICKET_TABLE_NUM WHERE TICKET_ID =:ticket_id")
+					.setParameter("ticket_id", ticketDTO.getId());
+			List<Object> tableObjects = tableQuery.list();
+			List<ShopTableDTO> tableDTOs = new ArrayList<>();
+			for (Object tableObject : tableObjects) {
+//				Object[] table = (Object[]) tableObject;
+				ShopTableDTO tableDTO = new ShopTableDTO();
+				tableDTO.setId(String.valueOf(String.valueOf(tableObject)));
+				tableDTOs.add(tableDTO);
+			}
+			ticketDTO.setShopTables(tableDTOs);
 			ticketDTOs.add(ticketDTO);
 		}
 		return ticketDTOs;
@@ -62,6 +78,7 @@ public class TicketDAOImpl extends AbstractDAO implements TicketDAO {
 		session.saveOrUpdate(ticket);
 		return ticket;
 	}
+	
 
 	@Override
 	public Ticket getTicket(Long id) {
@@ -73,6 +90,19 @@ public class TicketDAOImpl extends AbstractDAO implements TicketDAO {
 		return ticket;
 
 	}
+	
+	/***
+	 * To update the mapping
+	 */
+	@Override
+	public Set<TicketTableNum> saveTicketTableNum(Set<TicketTableNum> ticketTableNumbers){
+		Session session = sessionFactory.getCurrentSession();
+		for(TicketTableNum ticketTableNum: ticketTableNumbers){
+			session.save(ticketTableNum);
+		}
+		return ticketTableNumbers;
+	}
+
 
 	private TicketDTO copyProperties(Object[] ticket) {
 		TicketDTO ticketDTO = new TicketDTO();
@@ -81,7 +111,6 @@ public class TicketDAOImpl extends AbstractDAO implements TicketDAO {
 		ticketDTO.setActive_date(String.valueOf(ticket[2]));
 		ticketDTO.setCreated_hour(String.valueOf(ticket[3]));
 		ticketDTO.setIs_paid(String.valueOf(ticket[4]));
-		ticketDTO.setTable_id(String.valueOf(ticket[5]));
 		return ticketDTO;
 	}
 

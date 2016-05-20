@@ -1,10 +1,7 @@
 package com.seva.services.impl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,7 +12,10 @@ import org.springframework.stereotype.Service;
 import com.seva.Persistence.TicketDAO;
 import com.seva.entity.Ticket;
 import com.seva.entity.TicketItem;
+import com.seva.entity.TicketTableNum;
+import com.seva.entity.User;
 import com.seva.models.ItemDTO;
+import com.seva.models.ShopTableDTO;
 import com.seva.models.TicketDTO;
 import com.seva.services.TicketService;
 
@@ -42,6 +42,16 @@ public class TicketServiceImpl implements TicketService {
 			ticketEntity.setDeliveeryDate(currentTime.getTime());
 			ticketEntity.setDeliveryAddress(ticketDTO.getDeliveryAddress());
 			ticketEntity.setNumberOfGuests(Integer.valueOf(ticketDTO.getGuest_count()));
+			if(ticketDTO.getTicket_type() == null){
+				ticketEntity.setTicketType("DINE IN");
+			}else{
+				ticketEntity.setTicketType(ticketDTO.getTicket_type());
+			}
+			// TODO: hardcoded the user for now
+//			User user = new User();
+//			user.setUserId(1);
+//			ticketEntity.setUser2(user);
+			
 			copyTicketEntityProp(ticketDTO, ticketEntity);
 			
 //			ticketEntity.setAdvanceAmount(Double.valueOf(ticketDTO.getAdvanceAmount()));
@@ -65,7 +75,6 @@ public class TicketServiceImpl implements TicketService {
 //			ticketEntity.setTerminal(terminal);
 //			ticketEntity.setTicketDiscounts(ticketDiscounts);
 //			ticketEntity.setTicketProperties(ticketProperties);
-//			ticketEntity.setTicketTableNums(ticketTableNums);
 //			ticketEntity.setTicketType(ticketType);
 //			ticketEntity.setTotalDiscount(totalDiscount);
 //			ticketEntity.setTotalPrice(totalPrice);
@@ -80,7 +89,18 @@ public class TicketServiceImpl implements TicketService {
 			
 			ticketEntity = ticketDAO.saveTicket(ticketEntity);
 			ticketDTO.setId(String.valueOf(ticketEntity.getId()));
-		return null;
+			
+			Set<TicketTableNum> ticketTableNumbers = new HashSet<>(); 
+			for(ShopTableDTO shopTableDTO : ticketDTO.getShopTables()){
+				TicketTableNum ticketTableNum = new TicketTableNum();
+				ticketTableNum.setTableId(Integer.valueOf(shopTableDTO.getId()));
+				ticketTableNum.setTicket(ticketEntity);
+				ticketTableNumbers.add(ticketTableNum);
+			}
+//			ticketEntity.setTicketTableNums(ticketTableNumbers);
+			ticketDAO.saveTicketTableNum(ticketTableNumbers);
+			
+		return ticketDTO;
 	}
 
 	private void copyTicketEntityProp(TicketDTO ticketDTO, Ticket ticketEntity) {
