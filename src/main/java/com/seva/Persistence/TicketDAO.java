@@ -1,8 +1,10 @@
 package com.seva.Persistence;
 
 import java.util.List;
+import java.util.Set;
 
 import com.seva.entity.Ticket;
+import com.seva.entity.TicketTableNum;
 import com.seva.models.TicketDTO;
 
 public interface TicketDAO {
@@ -23,5 +25,12 @@ public interface TicketDAO {
 	 * @return
 	 */
 	public Ticket saveTicket(Ticket ticket);
+	
+	/***
+	 * Method to reserve tables against a ticket
+	 * @param ticketTableNum
+	 * @return
+	 */
+	public Set<TicketTableNum> saveTicketTableNum(Set<TicketTableNum> ticketTableNumbers);
 
 }
