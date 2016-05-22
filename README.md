@@ -7,7 +7,7 @@ MySQL Community Server<br></br>
 Eclipse <br></br>
 Maven <br></br>
 
-I have taken a restaurent solution as example and datalayer is completely structured. Run the script to create all tables 
+I have taken a restaurent solution as example and datalayer is completely structured. Execute the scripts from sql_script.sql file in your mysql server and connect to it by updating the DB credentials in jdbc.properties file
 
 # APIs
 Steps for the authentication and authorization APIs<br/><br/>
